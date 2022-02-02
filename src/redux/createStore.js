@@ -79,7 +79,7 @@ const instanceWallet = () => {
     const bchjsOptions = getBchjsOptions()
 
     const bchWalletLib = new BchWallet(localStorageInfo.mnemonic, bchjsOptions)
-     
+
     // Update bchjs instances  of minimal-slp-wallet libraries
     bchWalletLib.tokens.sendBch.bchjs = new bchWalletLib.BCHJS(bchjsOptions)
     bchWalletLib.tokens.utxos.bchjs = new bchWalletLib.BCHJS(bchjsOptions)
@@ -90,22 +90,21 @@ const instanceWallet = () => {
   }
 }
 
-const getBchjsOptions = ()=> {
+const getBchjsOptions = () => {
   try {
     const _interface = localStorageInfo.interface || 'consumer-api'
 
     const jwtToken = localStorageInfo.JWT
     const restURL = localStorageInfo.selectedServer
     const bchjsOptions = {}
-    
-    if(_interface === 'consumer-api'){
+
+    if (_interface === 'consumer-api') {
       bchjsOptions.interface = _interface
       return bchjsOptions
     }
 
     if (jwtToken) {
       bchjsOptions.apiToken = jwtToken
-      
     }
 
     if (restURL) {
@@ -120,7 +119,6 @@ const getBchjsOptions = ()=> {
     const FEE = process.env.FEE ? process.env.FEE : 1
     bchjsOptions.fee = FEE
     console.log(`Using ${bchjsOptions.fee} sats per byte for tx fees.`)
-
 
     return bchjsOptions
   } catch (error) {

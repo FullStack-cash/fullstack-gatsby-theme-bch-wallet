@@ -79,7 +79,7 @@ class NewWallet extends React.Component {
       _this.setState({
         inFetch: true
       })
-     
+
       const bchjsOptions = _this.getBchjsOptions()
 
       const bchWalletLib = new _this.BchWallet(null, bchjsOptions)
@@ -123,11 +123,12 @@ class NewWallet extends React.Component {
       _this.handleError(error)
     }
   }
-   getBchjsOptions (){
+
+  getBchjsOptions () {
     try {
       const currentWallet = _this.props.walletInfo
       // force interface from props
-      if(_this.props.interface){
+      if (_this.props.interface) {
         currentWallet.interface = _this.props.interface
       }
 
@@ -136,30 +137,30 @@ class NewWallet extends React.Component {
       const jwtToken = currentWallet.JWT
       const restURL = currentWallet.selectedServer
       const bchjsOptions = {}
-      
-      if(_interface === 'consumer-api'){
+
+      if (_interface === 'consumer-api') {
         bchjsOptions.interface = _interface
         return bchjsOptions
       }
-  
+
       if (jwtToken) {
         bchjsOptions.apiToken = jwtToken
-        
       }
-  
+
       if (restURL) {
         bchjsOptions.restURL = restURL
       }
-  
+
       if (_interface === 'rest-api') {
         bchjsOptions.interface = _interface
       }
-  
+
       return bchjsOptions
     } catch (error) {
       console.warn(error)
     }
   }
+
   handleError (error) {
     // console.error(error)
     let errMsg = ''
