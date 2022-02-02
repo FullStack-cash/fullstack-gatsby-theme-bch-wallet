@@ -92,7 +92,7 @@ const instanceWallet = () => {
 
 const getBchjsOptions = () => {
   try {
-    const _interface = localStorageInfo.interface || 'consumer-api'
+    const _interface = localStorageInfo.interface || 'rest-api'
 
     const jwtToken = localStorageInfo.JWT
     const restURL = localStorageInfo.selectedServer
