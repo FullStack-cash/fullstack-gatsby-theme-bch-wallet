@@ -4,6 +4,8 @@ import { getWalletInfo, setWalletInfo } from '../components/localWallet'
 // import BchWallet from 'minimal-slp-wallet'
 const BchWallet = typeof window !== 'undefined' ? window.SlpWallet : null
 
+const siteConfig = require('../components/site-config')
+
 const reducer = (state, action) => {
   // Update walletInfo state property
   if (action.type === 'SET_WALLET_INFO') {
@@ -100,6 +102,7 @@ const getBchjsOptions = () => {
 
     if (_interface === 'consumer-api') {
       bchjsOptions.interface = _interface
+      bchjsOptions.restURL = siteConfig.restURL
       return bchjsOptions
     }
 
