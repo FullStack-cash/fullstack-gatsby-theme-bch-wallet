@@ -43,7 +43,7 @@ class Memo {
     }
 
     if (BchMessage) {
-      this.bchMessage = new BchMessage({ bchjs: this.bchjs })
+      this.bchMessage = new BchMessage({ wallet: this.wallet })
     } else {
       console.error('Could not access bch-message-lib library.')
     }
