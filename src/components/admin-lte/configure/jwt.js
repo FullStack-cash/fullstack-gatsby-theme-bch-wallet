@@ -100,7 +100,7 @@ class JsonWebTokens extends React.Component {
         }
 
         bchjsOptions.interface = _interface
-        // console.log('bchjs options : ', bchjsOptions)
+        console.log('handleUpdateJWT() bchjs options : ', bchjsOptions)
         const bchWalletLib = new _this.BchWallet(mnemonic, bchjsOptions)
 
         // Update bchjs instances  of minimal-slp-wallet libraries

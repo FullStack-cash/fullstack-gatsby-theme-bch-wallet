@@ -79,6 +79,7 @@ const instanceWallet = () => {
     if (!localStorageInfo.mnemonic) return null
 
     const bchjsOptions = getBchjsOptions()
+    console.log(`instanceWallet() bchjsOptions: ${JSON.stringify(bchjsOptions, null, 2)}`)
 
     const bchWalletLib = new BchWallet(localStorageInfo.mnemonic, bchjsOptions)
 

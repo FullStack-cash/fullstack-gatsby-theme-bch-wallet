@@ -80,6 +80,7 @@ class NewWallet extends React.Component {
       })
 
       const bchjsOptions = _this.getBchjsOptions()
+      console.log(`handleCreateWallet() bchjsOptions: ${JSON.stringify(bchjsOptions, null, 2)}`)
 
       const bchWalletLib = new _this.BchWallet(null, bchjsOptions)
 
