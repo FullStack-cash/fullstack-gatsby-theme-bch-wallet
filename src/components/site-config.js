@@ -22,11 +22,11 @@ const config = {
   clearWebUrl: 'https://gatsby-ipfs-web-wallet.fullstack.cash',
 
   // Interface used by minial-slp-wallet
-  interface: 'consumer-api',
-  restURL: 'https://free-bch.fullstack.cash'
+  // interface: 'consumer-api',
+  // restURL: 'https://free-bch.fullstack.cash'
   // restURL: 'http://localhost:5005'
-  // interface: 'rest-api',
-  // restURL: 'https://bchn.fullstack.cash/v5/'
+  interface: 'rest-api',
+  restURL: 'https://bchn.fullstack.cash/v5/'
 }
 
 module.exports = config
