@@ -6,8 +6,11 @@ import TokenModal from './token-modal'
 import Spinner from '../../../images/loader.gif'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SendTokens from './send-tokens'
-import { SlpMutableData } from 'slp-mutable-data'
+// import { SlpMutableData } from 'slp-mutable-data'
+import axios from 'axios'
+
 let _this
+
 class Tokens extends React.Component {
   constructor (props) {
     super(props)
@@ -270,15 +273,34 @@ class Tokens extends React.Component {
   // try to get mutable data from token id
   async handleMutableData (tokensArr) {
     try {
+      const bchWalletLib = _this.props.bchWallet
+      const bchjs = bchWalletLib.bchjs
+
       const tokens = []
-      const slpMutableLib = new SlpMutableData()
+      // const slpMutableLib = new SlpMutableData()
 
       for (let i = 0; i < tokensArr.length; i++) {
         const token = tokensArr[i]
         try {
-          const data = await slpMutableLib.get.mutableData(token.tokenId)
-          token.mutableData = data
-          // console.log(`data: ${JSON.stringify(data, null, 2)}`)
+          // Get token data from bch-api.
+          const tokenData = await bchjs.PsfSlpIndexer.getTokenData(token.tokenId)
+          // console.log(`tokenData ${i}: ${JSON.stringify(tokenData, null, 2)}`)
+
+          // Extract the raw CID.
+          const immutableCid = tokenData.immutableData.slice(7)
+          const mutableCid = tokenData.mutableData.slice(7)
+          // console.log(`immutableCid: ${immutableCid}`)
+          // console.log(`mutableCid: ${mutableCid}`)
+
+          // Get mutable data from Filecoin.
+          const mutableData = await axios.get(`https://${mutableCid}.ipfs.dweb.link/data.json`)
+          token.mutableData = mutableData.data
+          // console.log('token.mutableData: ', token.mutableData)
+
+          // Get immutable data from Filecoin.
+          const immutableData = await axios.get(`https://${immutableCid}.ipfs.dweb.link/data.json`)
+          token.immutableData = immutableData.data
+          // console.log('token.immutableData: ', token.immutableData)
         } catch (error) {
           // console.warn(error)
           // Skip error
