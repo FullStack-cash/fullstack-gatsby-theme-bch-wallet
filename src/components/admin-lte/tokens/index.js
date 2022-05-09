@@ -295,19 +295,18 @@ class Tokens extends React.Component {
           // console.log(`mutableCid: ${mutableCid}`)
 
           // Get mutable data from Filecoin.
-          if(isIpfs.cid(mutableCid)) {
+          if (isIpfs.cid(mutableCid)) {
             const mutableData = await axios.get(`https://${mutableCid}.ipfs.dweb.link/data.json`)
             token.mutableData = mutableData.data
             // console.log('token.mutableData: ', token.mutableData)
           }
 
-          if(isIpfs.cid(immutableCid)) {
+          if (isIpfs.cid(immutableCid)) {
             // Get immutable data from Filecoin.
             const immutableData = await axios.get(`https://${immutableCid}.ipfs.dweb.link/data.json`)
             token.immutableData = immutableData.data
             // console.log('token.immutableData: ', token.immutableData)
           }
-
         } catch (error) {
           console.warn(error)
           // Skip error
