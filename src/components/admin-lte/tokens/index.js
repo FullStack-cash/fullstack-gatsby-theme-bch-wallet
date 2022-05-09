@@ -9,6 +9,8 @@ import SendTokens from './send-tokens'
 // import { SlpMutableData } from 'slp-mutable-data'
 import axios from 'axios'
 
+const isIpfs = require('is-ipfs')
+
 let _this
 
 class Tokens extends React.Component {
@@ -293,16 +295,21 @@ class Tokens extends React.Component {
           // console.log(`mutableCid: ${mutableCid}`)
 
           // Get mutable data from Filecoin.
-          const mutableData = await axios.get(`https://${mutableCid}.ipfs.dweb.link/data.json`)
-          token.mutableData = mutableData.data
-          // console.log('token.mutableData: ', token.mutableData)
+          if(isIpfs.cid(mutableCid)) {
+            const mutableData = await axios.get(`https://${mutableCid}.ipfs.dweb.link/data.json`)
+            token.mutableData = mutableData.data
+            // console.log('token.mutableData: ', token.mutableData)
+          }
 
-          // Get immutable data from Filecoin.
-          const immutableData = await axios.get(`https://${immutableCid}.ipfs.dweb.link/data.json`)
-          token.immutableData = immutableData.data
-          // console.log('token.immutableData: ', token.immutableData)
+          if(isIpfs.cid(immutableCid)) {
+            // Get immutable data from Filecoin.
+            const immutableData = await axios.get(`https://${immutableCid}.ipfs.dweb.link/data.json`)
+            token.immutableData = immutableData.data
+            // console.log('token.immutableData: ', token.immutableData)
+          }
+
         } catch (error) {
-          // console.warn(error)
+          console.warn(error)
           // Skip error
           console.log(
             `Could not access mutable data for ${token.ticker} (${token.tokenId})`
